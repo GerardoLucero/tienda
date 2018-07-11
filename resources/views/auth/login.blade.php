@@ -8,12 +8,10 @@
       <div class="row">
         <div class="col-lg- col-md-6 ml-auto mr-auto">
           <div class="card card-login">
-
-
             <form class="form" method="POST" action="{{ route('login') }}">
              @csrf
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Login</h4>
+                <h4 class="card-title">Inicio de Sesión</h4>
                 <div class="social-line">
                   <a href="#pablo" class="btn btn-just-icon btn-link">
                     <i class="fa fa-facebook-square"></i>
@@ -26,23 +24,22 @@
                   </a>
                 </div>
               </div>
-              <p class="description text-center">Or Be Classical</p>
+              <p class="description text-center">Ingresa tus datos</p>
               <div class="card-body">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">face</i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="First Name...">
-                </div>
+
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="material-icons">mail</i>
                     </span>
                   </div>
-                  <input type="email" class="form-control" placeholder="Email...">
+                  <input placeholder="Email" id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -50,11 +47,29 @@
                       <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password...">
+                  <input placeholder="Password" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                 </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                       <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
               </div>
+
               <div class="footer text-center">
-                <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</a>
+                <button type="submit" class="btn btn-primary btn-link btn-wd btn-lg">                                    {{ __('Login') }}</button>
+
+                <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}
+                </a>
               </div>
             </form>
           </div>
